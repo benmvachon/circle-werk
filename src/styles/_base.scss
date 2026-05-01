@@ -13,7 +13,6 @@ html {
   font-family: $font-family-base;
   line-height: $line-height-normal;
   font-weight: $font-weight-normal;
-  color-scheme: light dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -74,24 +73,8 @@ select {
 
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: $overlay-light;
   padding: 2px 6px;
   border-radius: $border-radius-sm;
   font-size: 0.9em;
-}
-
-// Dark mode
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: $text-dark;
-    background-color: $background-dark;
-  }
-  
-  a:hover {
-    color: #747bff;
-  }
-  
-  button {
-    background-color: #1a1a1a;
-  }
 }

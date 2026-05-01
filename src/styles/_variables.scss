@@ -1,15 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;500;600;700');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite:wght@400;500;600;700');
+
 // Colors
-$primary-color: #646cff;
-$primary-hover: #535bf2;
-$secondary-color: #242424;
-$background-light: #ffffff;
-$background-dark: #242424;
-$text-light: #213547;
-$text-dark: rgba(255, 255, 255, 0.87);
-$border-color: #e0e0e0;
-$error-color: #ef4444;
-$success-color: #10b981;
-$warning-color: #f59e0b;
+$golden-orange: #f59e0bff;
+$mint-leaf: #10b981ff;
+$strawberry-red: #ef4444ff;
+$dim-grey: #71697aff;
+$space-indigo: #1c1f33ff;
+$cotton-rose: #ffcfd2ff;
+$cerulean: #227c9dff;
+$floral-white: #fef9efff;
+$deep-mocha: #402e2aff;
+$mauve-shadow: #684551ff;
+
+$primary-color: $deep-mocha;
+$primary-hover: $mauve-shadow;
+
+$secondary-color: $mauve-shadow;
+
+$background-light: $floral-white;
+$background-disabled: $cotton-rose;
+
+$text-light: $space-indigo;
+$text-muted: $dim-grey;
+
+$border-color: $cotton-rose;
+
+$error-color: $strawberry-red;
+$success-color: $mint-leaf;
+$warning-color: $golden-orange;
+
+// Gradients
+$background-gradient: linear-gradient(135deg, $dim-grey 0%, $cotton-rose 100%);
+
+// Overlays
+$overlay-light: rgba($space-indigo, 0.05);
+$overlay-light-subtle: rgba($space-indigo, 0.02);
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -20,7 +47,8 @@ $spacing-xl: 2rem;
 $spacing-2xl: 3rem;
 
 // Typography
-$font-family-base: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+$font-family-base: 'Space Mono', monospace;
+$font-family-heading: 'Playfair Display', serif;
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
 $font-size-base: 1rem;

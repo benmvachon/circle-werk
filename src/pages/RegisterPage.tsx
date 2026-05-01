@@ -46,7 +46,7 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="page auth-page">
       <h1>Create Account</h1>
       <form onSubmit={handleSubmit}>
         <div>

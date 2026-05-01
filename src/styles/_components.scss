@@ -3,11 +3,14 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
+.page {
+  @include page-base;
+}
+
 // Authentication pages
 .auth-page {
   @include flex-center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   flex-direction: column;
   
   > div {
@@ -59,7 +62,7 @@
     text-align: center;
     margin-top: $spacing-lg;
     font-size: $font-size-sm;
-    color: #666;
+    color: $text-muted;
   }
 }
 
@@ -124,7 +127,7 @@
   }
   
   .help-text {
-    color: #666;
+    color: $text-muted;
     font-size: $font-size-sm;
   }
 }
@@ -174,7 +177,7 @@
     }
     
     &:hover {
-      background-color: rgba(0, 0, 0, 0.02);
+      background-color: $overlay-light-subtle;
     }
   }
 }
@@ -185,7 +188,7 @@
   @include flex-column;
   padding: $spacing-2xl;
   text-align: center;
-  color: #666;
+  color: $text-muted;
   
   h3 {
     margin-bottom: $spacing-sm;
@@ -193,43 +196,5 @@
   
   p {
     margin-bottom: $spacing-lg;
-  }
-}
-
-// Dark mode
-@media (prefers-color-scheme: dark) {
-  .auth-page {
-    background: linear-gradient(135deg, #434343 0%, #000000 100%);
-  }
-  
-  .card {
-    background-color: #1a1a1a;
-    color: $text-dark;
-  }
-  
-  .form-group {
-    label {
-      color: $text-dark;
-    }
-    
-    input,
-    textarea,
-    select {
-      background-color: #2a2a2a;
-      border-color: #444;
-      color: $text-dark;
-      
-      &:focus {
-        border-color: #747bff;
-      }
-    }
-  }
-  
-  .list li {
-    border-bottom-color: #333;
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
   }
 }

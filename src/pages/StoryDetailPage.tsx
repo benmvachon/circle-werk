@@ -6,7 +6,7 @@ export function StoryDetailPage() {
   const round = searchParams.get('round');
 
   return (
-    <div>
+    <div className="story-detail-page">
       <h1>Story Details</h1>
       <p>Story ID: {storyId}</p>
       {round && <p>Viewing Round: {round}</p>}

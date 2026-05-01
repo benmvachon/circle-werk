@@ -74,7 +74,7 @@
 @mixin button-primary {
   @include button-base;
   background-color: $primary-color;
-  color: white;
+  color: $background-light;
   
   &:hover:not(:disabled) {
     background-color: $primary-hover;
@@ -88,13 +88,13 @@
   color: $text-light;
   
   &:hover:not(:disabled) {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: $overlay-light;
   }
 }
 
 // Card styles
 @mixin card {
-  background: white;
+  background: $background-light;
   border-radius: $border-radius-lg;
   padding: $spacing-xl;
   box-shadow: $shadow-md;
@@ -116,7 +116,7 @@
   }
   
   &:disabled {
-    background-color: #f5f5f5;
+    background-color: $background-disabled;
     cursor: not-allowed;
   }
 }
@@ -140,4 +140,10 @@
   transition-property: $properties;
   transition-duration: $transition-base;
   transition-timing-function: ease-in-out;
+}
+
+@mixin page-base {
+  padding: $spacing-xl;
+  margin: 0 auto;
+  background: $background-gradient;
 }

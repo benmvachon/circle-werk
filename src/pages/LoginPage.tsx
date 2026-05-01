@@ -26,7 +26,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="page auth-page">
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <div>
