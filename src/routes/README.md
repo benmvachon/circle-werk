@@ -11,7 +11,12 @@ This directory contains the routing setup for Circle Werk using React Router v6.
 
 ## Routes
 
-### Public Routes
+### Public Routes (No Authentication Required)
+
+- **`/login`** - User login page
+- **`/register`** - User registration page
+
+### Protected Routes (Authentication Required)
 
 - **`/`** - Home page
 - **`/circles`** - List of user's circles
