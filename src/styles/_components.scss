@@ -182,6 +182,340 @@
   }
 }
 
+// Modal overlay
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba($space-indigo, 0.5);
+  @include flex-center;
+  z-index: $z-modal;
+  padding: $spacing-xl;
+}
+
+.modal {
+  @include card;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+
+  .modal-header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+
+    h2 {
+      margin: 0;
+    }
+
+    button {
+      @include button-secondary;
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-lg;
+      line-height: 1;
+    }
+  }
+
+  .modal-body {
+    @include flex-column;
+    gap: $spacing-lg;
+  }
+
+  .modal-footer {
+    @include flex-between;
+    margin-top: $spacing-xl;
+    gap: $spacing-md;
+
+    button {
+      flex: 1;
+    }
+  }
+}
+
+// Circles page
+.circles-page {
+  .page-header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .circles-grid {
+    display: grid;
+    gap: $spacing-lg;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+.circle-card {
+  @include card;
+  cursor: pointer;
+  transition: box-shadow $transition-base, transform $transition-base;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+    color: inherit;
+  }
+
+  .circle-card-header {
+    @include flex-between;
+    margin-bottom: $spacing-md;
+
+    h3 {
+      margin: 0;
+      @include truncate;
+      flex: 1;
+    }
+  }
+
+  .circle-card-meta {
+    display: flex;
+    gap: $spacing-lg;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    margin-bottom: $spacing-md;
+  }
+
+  .circle-card-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+  }
+}
+
+// Profile icon
+.profile-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.profile-icon {
+  @include flex-center;
+  border-radius: $border-radius-full;
+  color: $floral-white;
+  font-weight: $font-weight-bold;
+  user-select: none;
+  flex-shrink: 0;
+
+  &.profile-color-mocha { background-color: $deep-mocha; }
+  &.profile-color-mauve { background-color: $mauve-shadow; }
+  &.profile-color-cerulean { background-color: $cerulean; }
+  &.profile-color-indigo { background-color: $space-indigo; }
+  &.profile-color-grey { background-color: $dim-grey; }
+  &.profile-color-mint { background-color: $mint-leaf; }
+  &.profile-color-orange { background-color: $golden-orange; }
+}
+
+.profile-icon-sm {
+  .profile-icon {
+    width: 28px;
+    height: 28px;
+    font-size: $font-size-xs;
+  }
+}
+
+.profile-icon-md {
+  .profile-icon {
+    width: 36px;
+    height: 36px;
+    font-size: $font-size-sm;
+  }
+}
+
+.profile-icon-lg {
+  .profile-icon {
+    width: 48px;
+    height: 48px;
+    font-size: $font-size-lg;
+  }
+}
+
+.profile-icon-remove {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  @include flex-center;
+  width: 16px;
+  height: 16px;
+  border-radius: $border-radius-full;
+  background-color: $error-color;
+  color: $floral-white;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity $transition-fast;
+
+  .profile-icon-wrapper:hover & {
+    opacity: 1;
+  }
+}
+
+.profile-icon-popover {
+  position: absolute;
+  bottom: calc(100% + $spacing-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: $z-tooltip;
+  background: $background-light;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+  padding: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  white-space: nowrap;
+  pointer-events: none;
+
+  .profile-icon-popover-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: $font-size-base;
+  }
+}
+
+.profile-icon-popover-details {
+  @include flex-column;
+  gap: 2px;
+}
+
+.profile-icon-popover-name {
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-sm;
+  color: $text-light;
+}
+
+.profile-icon-popover-email {
+  font-size: $font-size-xs;
+  color: $text-muted;
+}
+
+// Member tags
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.member-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($cerulean, 0.1);
+  color: $cerulean;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+
+  &.member-tag-self {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+  }
+
+  .member-tag-remove {
+    @include flex-center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-size: $font-size-sm;
+    color: inherit;
+    opacity: 0.6;
+    line-height: 1;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Search input (generic)
+.search-input {
+  position: relative;
+
+  input {
+    width: 100%;
+  }
+}
+
+.search-input-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: $z-dropdown;
+  background: $background-light;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-lg;
+  margin-top: $spacing-xs;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.search-input-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: $font-size-sm;
+
+  &:hover {
+    background-color: $overlay-light;
+  }
+}
+
+.search-input-empty,
+.search-input-loading {
+  padding: $spacing-sm $spacing-md;
+  color: $text-muted;
+  font-size: $font-size-sm;
+  text-align: center;
+}
+
+// Member search (specific)
+.member-search {
+  .search-item-name {
+    font-weight: $font-weight-medium;
+    color: $text-light;
+  }
+
+  .search-item-email {
+    color: $text-muted;
+    font-size: $font-size-xs;
+  }
+}
+
+// Inline error
+.error-inline {
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba($error-color, 0.1);
+  color: $error-color;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  border: 1px solid rgba($error-color, 0.3);
+}
+
 // Empty states
 .empty-state {
   @include flex-center;
