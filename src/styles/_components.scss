@@ -294,6 +294,10 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
+
+  &.profile-icon-clickable {
+    cursor: pointer;
+  }
 }
 
 .profile-icon {

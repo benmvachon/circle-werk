@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { ProfileIcon } from './ProfileIcon';
 
 export function Header() {
   const { user, signOut } = useAuth();
@@ -16,11 +17,15 @@ export function Header() {
         <Link to="/">Home</Link>
         <Link to="/circles">Circles</Link>
         <Link to="/assignments">Assignments</Link>
-        <Link to="/profile">Profile</Link>
       </div>
       {user && (
         <div className="nav-user">
-          <span>{user.email}</span>
+          <ProfileIcon
+            name={user.displayName || user.email || 'You'}
+            email={user.email}
+            hoverable={false}
+            onClick={() => navigate('/profile')}
+          />
           <button onClick={handleSignOut}>Sign Out</button>
         </div>
       )}

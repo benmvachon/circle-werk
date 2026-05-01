@@ -3,8 +3,10 @@ import { useState, useRef, useEffect } from 'react';
 interface ProfileIconProps {
   name: string;
   email: string;
+  hoverable?: boolean;
   size?: 'sm' | 'md' | 'lg';
   onRemove?: () => void;
+  onClick?: () => void;
 }
 
 function getInitials(name: string): string {
@@ -37,7 +39,7 @@ function pickColorClass(name: string): string {
   return COLOR_CLASSES[index];
 }
 
-export function ProfileIcon({ name, email, size = 'md', onRemove }: ProfileIconProps) {
+export function ProfileIcon({ name, email, hoverable = true, size = 'md', onRemove, onClick }: ProfileIconProps) {
   const [showPopover, setShowPopover] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -79,10 +81,11 @@ export function ProfileIcon({ name, email, size = 'md', onRemove }: ProfileIconP
 
   return (
     <div
-      className={`profile-icon-wrapper profile-icon-${size}`}
+      className={`profile-icon-wrapper profile-icon-${size} ${onClick ? 'profile-icon-clickable' : ''}`}
       ref={containerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={hoverable ? handleMouseEnter : undefined}
+      onMouseLeave={hoverable ? handleMouseLeave : undefined}
+      onClick={onClick}
     >
       <div
         className={`profile-icon ${colorClass}`}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import { auth } from '../firebase';
 import { createUser } from '../lib/users';
@@ -32,6 +32,10 @@ export function RegisterPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
+      await updateProfile(userCredential.user, {
+        displayName: name,
+      });
+
       await createUser(userCredential.user.uid, {
         name,
         email,
