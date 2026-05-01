@@ -25,7 +25,7 @@ const LOCAL_KEY = resolve("serviceAccountKey.json");
 
 let credential: Credential;
 if (existsSync(LOCAL_KEY)) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+   
   const keyModule = await import(LOCAL_KEY, { with: { type: "json" } });
   credential = cert({ ...keyModule.default });
   console.log("Using local serviceAccountKey.json");
