@@ -22,7 +22,7 @@ export function Header() {
         <div className="nav-user">
           <ProfileIcon
             name={user.displayName || user.email || 'You'}
-            email={user.email}
+            email={user.email ?? ''}
             hoverable={false}
             onClick={() => navigate('/profile')}
           />
