@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 // Layout components
 .app-layout {
   min-height: 100vh;

@@ -1,4 +1,8 @@
 // Base styles and resets
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
 *,
 *::before,
 *::after {
