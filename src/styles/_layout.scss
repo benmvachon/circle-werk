@@ -1,0 +1,105 @@
+// Layout components
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  main {
+    flex: 1;
+    padding: $spacing-xl;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.main-nav {
+  @include flex-between;
+  padding: $spacing-md $spacing-xl;
+  background-color: white;
+  border-bottom: 1px solid $border-color;
+  box-shadow: $shadow-sm;
+  
+  .nav-links {
+    display: flex;
+    gap: $spacing-lg;
+    
+    a {
+      padding: $spacing-sm $spacing-md;
+      border-radius: $border-radius-md;
+      transition: background-color $transition-base;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+  
+  .nav-user {
+    @include flex-center;
+    gap: $spacing-md;
+    
+    span {
+      color: $text-light;
+      font-size: $font-size-sm;
+    }
+    
+    button {
+      padding: $spacing-xs $spacing-md;
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.loading-screen {
+  @include flex-center;
+  min-height: 50vh;
+  
+  p {
+    font-size: $font-size-lg;
+    color: #666;
+  }
+}
+
+// Container utilities
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+.container-sm {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+// Grid utilities
+.grid {
+  display: grid;
+  gap: $spacing-lg;
+  
+  &.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  &.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+// Dark mode
+@media (prefers-color-scheme: dark) {
+  .main-nav {
+    background-color: #1a1a1a;
+    border-bottom-color: #333;
+    
+    .nav-links a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-user span {
+      color: $text-dark;
+    }
+  }
+}

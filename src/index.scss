@@ -1,0 +1,8 @@
+// Main stylesheet - Circle Werk
+// Import order: variables → mixins → base → layout → components
+
+@import './styles/variables';
+@import './styles/mixins';
+@import './styles/base';
+@import './styles/layout';
+@import './styles/components';
