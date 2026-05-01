@@ -1,18 +1,94 @@
-rules_version='2'
+rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 5, 30);
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isMemberOfCircle(circleId) {
+      return isAuthenticated() && 
+             request.auth.uid in get(/databases/$(database)/documents/circles/$(circleId)).data.member_ids;
+    }
+    
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId) && 
+                       request.resource.data.id == userId &&
+                       request.resource.data.email == request.auth.token.email;
+      allow update: if isOwner(userId) &&
+                       request.resource.data.id == userId &&
+                       request.resource.data.email == resource.data.email;
+      allow delete: if isOwner(userId);
+    }
+    
+    match /circles/{circleId} {
+      allow read: if isAuthenticated() && 
+                     request.auth.uid in resource.data.member_ids;
+      allow create: if isAuthenticated() &&
+                       request.auth.uid in request.resource.data.member_ids &&
+                       request.resource.data.created_by == request.auth.uid &&
+                       request.resource.data.member_ids.size() >= 6 &&
+                       request.resource.data.member_ids.size() <= 8 &&
+                       request.resource.data.cadence_hours > 0;
+      allow update: if isMemberOfCircle(circleId) &&
+                       request.resource.data.member_ids == resource.data.member_ids &&
+                       request.resource.data.rotation_order == resource.data.rotation_order &&
+                       request.resource.data.created_by == resource.data.created_by;
+      allow delete: if isAuthenticated() && 
+                       resource.data.created_by == request.auth.uid;
+    }
+    
+    match /stories/{storyId} {
+      allow read: if isAuthenticated() && 
+                     isMemberOfCircle(resource.data.circle_id);
+      allow create: if isAuthenticated() &&
+                       isMemberOfCircle(request.resource.data.circle_id) &&
+                       request.resource.data.owner_id == request.auth.uid &&
+                       request.resource.data.status == 'active' &&
+                       request.resource.data.current_round == 0;
+      allow update: if isMemberOfCircle(resource.data.circle_id) &&
+                       request.resource.data.owner_id == resource.data.owner_id &&
+                       request.resource.data.circle_id == resource.data.circle_id;
+      allow delete: if false;
+    }
+    
+    match /entries/{entryId} {
+      allow read: if isAuthenticated() && 
+                     isMemberOfCircle(get(/databases/$(database)/documents/stories/$(resource.data.story_id)).data.circle_id);
+      allow create: if isAuthenticated() &&
+                       request.resource.data.user_id == request.auth.uid &&
+                       request.resource.data.content.size() <= 1200 &&
+                       request.resource.data.content.size() > 0 &&
+                       exists(/databases/$(database)/documents/assignments/$(request.auth.uid + '_' + request.resource.data.story_id + '_' + request.resource.data.round_number)) &&
+                       get(/databases/$(database)/documents/assignments/$(request.auth.uid + '_' + request.resource.data.story_id + '_' + request.resource.data.round_number)).data.submitted == false &&
+                       request.time <= request.resource.data.locked_at;
+      allow update: if false;
+      allow delete: if false;
+    }
+    
+    match /assignments/{assignmentId} {
+      allow read: if isAuthenticated() && 
+                     (request.auth.uid == resource.data.user_id ||
+                      isMemberOfCircle(resource.data.circle_id));
+      allow create: if isAuthenticated() &&
+                       isMemberOfCircle(request.resource.data.circle_id) &&
+                       request.resource.data.submitted == false;
+      allow update: if isAuthenticated() &&
+                       resource.data.user_id == request.auth.uid &&
+                       request.resource.data.user_id == resource.data.user_id &&
+                       request.resource.data.story_id == resource.data.story_id &&
+                       request.resource.data.round_number == resource.data.round_number &&
+                       request.resource.data.circle_id == resource.data.circle_id &&
+                       request.resource.data.assigned_at == resource.data.assigned_at &&
+                       request.resource.data.due_at == resource.data.due_at &&
+                       (request.resource.data.submitted == true || request.resource.data.submitted == false);
+      allow delete: if false;
     }
   }
 }
